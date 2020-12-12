@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<h1>Add Stock</h1>
+<br>
+<form action= "{% url 'add_stock' %}" method= 'POST' class="form-inline my-2 my-lg-0">
+  {% csrf_token %}
+  <input class="form-control mr-sm-2" type="search" placeholder="Enter ticker symbol" aria-label="Search" name="symbol">
+  <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Add Stock</button>
+</form>
+<br>
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Company Name</th>
+      <th scope="col">Stock Price</th>
+      <th scope="col">52 week high</th>
+      <th scope="col">52 week low</th>
+      <th scope="col">Market Cap</th>
+      
+
+    </tr>
+  </thead>
+  <tbody>
+    {% load humanize %}
+    {% if output %}
+    {% for stock in output %}
+    <tr>
+      <td>{{ stock.companyName }}</td>
+      <td>${{ stock.latestPrice|intcomma }}</td>
+      <td>${{ stock.week52High|intcomma }}</td>
+      <td>${{ stock.week52Low|intcomma }}</td>
+      <td>${{ stock.marketCap|intcomma }}</td>
+
+    </tr>
+{% endfor %}
+{% endif %}
+  </tbody>
+</table>
+
+
+</div>
+{% endblock %}

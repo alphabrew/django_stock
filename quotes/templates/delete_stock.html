@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<h1>Delete Stock</h1>
+<br>
+
+{% if ticker %}
+
+{% for item in ticker %}
+  {{ item }} | <a href="{% url 'delete' item.id %}">Delete</a><br>
+
+{% endfor %}
+{% else %}
+  <p>No stocks to delete!</p>
+{% endif %}
+
+</div>
+{% endblock %}
